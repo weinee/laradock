@@ -193,15 +193,13 @@ RUN if [ ${INSTALL_MONGO} = true ]; then \
 #####################################
 # Drush:
 #####################################
-USER root
+USER laradock
 ENV DRUSH_VERSION 8.1.2
 ARG INSTALL_DRUSH=false
 ENV INSTALL_DRUSH ${INSTALL_DRUSH}
 RUN if [ ${INSTALL_DRUSH} = true ]; then \
     # Install Drush 8 with the phar file.
-    curl -fsSL -o /usr/local/bin/drush https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar | bash && \
-    chmod +x /usr/local/bin/drush && \
-    drush core-status \
+    composer global require webflo/drush-shim \
 ;fi
 
 USER laradock
